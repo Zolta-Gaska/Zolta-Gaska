@@ -13,5 +13,8 @@
             "email": "thebuladev@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "scripts": {
+        "gaska:wstan": "php -S localhost:8899 -t publiczny/"
+    }
 }
