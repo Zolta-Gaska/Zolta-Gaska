@@ -1,0 +1,17 @@
+{
+    "name": "zolta-gaska/zolta-gaska",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "ZoltaGaska\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "theBulaDev",
+            "email": "thebuladev@gmail.com"
+        }
+    ],
+    "require": {}
+}
