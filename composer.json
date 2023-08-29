@@ -15,6 +15,9 @@
     ],
     "require": {},
     "scripts": {
-        "gąska:leć": "php -S localhost:8899 -t publiczny/"
+        "gąska:leć": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S localhost:8899 -t publiczny/"
+        ]
     }
 }
