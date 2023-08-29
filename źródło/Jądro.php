@@ -6,6 +6,8 @@ namespace ŻółtaGąska;
 
 class Jądro
 {
+    private $ścieżki = [];
+
     public function __construct()
     {
         echo 'Jądro skonstrułowane!!!';
@@ -14,6 +16,11 @@ class Jądro
     public function uruchomienieTestowe(): void
     {
         echo 'Jądro::uruchomienieTestowe()';
+    }
+
+    private function czytajŚcieżki(): void
+    {
+        $folderŚcieżek = '';
     }
 }
 

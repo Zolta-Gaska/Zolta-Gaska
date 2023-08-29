@@ -15,6 +15,6 @@
     ],
     "require": {},
     "scripts": {
-        "gaska:wstan": "php -S localhost:8899 -t publiczny/"
+        "gąska:leć": "php -S localhost:8899 -t publiczny/"
     }
 }
