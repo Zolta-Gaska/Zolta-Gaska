@@ -51,6 +51,25 @@ class Jądro
 
     private function czytajLink(): void
     {
+        $tablicaLinków = [];
+
+        $ścieżka = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $tablicaŚcieżek = explode('/', $ścieżka);
+        $żądanie = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+        $tablicaParametrów = explode('&', $żądanie);
+        // $fragment = parse_url($_SERVER['REQUEST_URI'], PHP_URL_FRAGMENT);
+
+        $this->l();
+        var_dump($ścieżka);
+        $this->l();
+        print_r($tablicaŚcieżek);
+        $this->l();
+        var_dump($żądanie);
+        $this->l();
+        print_r($tablicaParametrów);
+        $this->l();
+
+        // return $tablicaLinków;
     }
 
     private function generujOdpowiedź(): void
