@@ -55,8 +55,12 @@ class Jądro
 
         $ścieżka = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $tablicaŚcieżek = explode('/', $ścieżka);
+
         $żądanie = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
-        $tablicaParametrów = explode('&', $żądanie);
+        $tablicaParametrów = [];
+        if ($żądanie !== null) {
+            $tablicaParametrów = explode('&', $żądanie);
+        }
         // $fragment = parse_url($_SERVER['REQUEST_URI'], PHP_URL_FRAGMENT);
 
         $this->l();
