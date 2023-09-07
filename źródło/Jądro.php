@@ -10,18 +10,14 @@ class Jądro
 
     public function __construct()
     {
-        echo 'Jądro skonstrułowane!!!';
     }
 
     public function uruchom(): void
     {
-        echo 'Jądro::uruchomienieTestowe()';
-        $this->l();
-        echo $this->zwróćGłównyFolder();
-        
-        $this->czytajLink();
-        $this->czytajŚcieżki();
-        $this->generujOdpowiedź();
+        $linki = $this->czytajLink();
+        $scieżki = $this->czytajŚcieżki();
+
+        $this->generujOdpowiedź($linki['linki'], $scieżki);
     }
 
     public function pokażDebug(): void
@@ -49,35 +45,47 @@ class Jądro
         $this->l();
     }
 
-    private function czytajLink(): void
+    /**
+     * @return array<string, mixed>
+     */
+    private function czytajLink(): array
     {
+        $link = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $tablicaLinków = [];
-
-        $ścieżka = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $tablicaŚcieżek = explode('/', $ścieżka);
+        if ($link !== null) {
+            $tablicaLinków = array_filter(explode('/', $link));
+        }
+        if (empty($tablicaLinków)) {
+            $tablicaLinków = ['index.html'];
+        }
 
         $żądanie = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
         $tablicaParametrów = [];
         if ($żądanie !== null) {
-            $tablicaParametrów = explode('&', $żądanie);
+            $tablicaParametrów = array_filter(explode('&', $żądanie));
         }
-        // $fragment = parse_url($_SERVER['REQUEST_URI'], PHP_URL_FRAGMENT);
 
-        $this->l();
-        var_dump($ścieżka);
-        $this->l();
-        print_r($tablicaŚcieżek);
-        $this->l();
-        var_dump($żądanie);
-        $this->l();
-        print_r($tablicaParametrów);
-        $this->l();
-
-        // return $tablicaLinków;
+        return [
+            'linki' => array_values($tablicaLinków),
+            'parametry' => array_values($tablicaParametrów),
+        ];
     }
 
-    private function generujOdpowiedź(): void
+    private function generujOdpowiedź(array $linki, array $ścieżki): void
     {
+        foreach ($ścieżki as $ścieżka) {
+            $częściŚcieżki = array_filter(explode('.', $ścieżka));
+
+            if ($linki[0] === $częściŚcieżki[0]
+                || $linki[0] === $częściŚcieżki[0] . '.' . $częściŚcieżki[1]
+            ) {
+                include $this->zwróćGłównyFolder() . 'ścieżki/' . $ścieżka;
+                return;
+            }
+        }
+
+        http_response_code(404);
+        echo 'ERROR 404';
     }
 
     private function zwróćGłównyFolder(): string
@@ -85,7 +93,10 @@ class Jądro
         return __DIR__ . '/../';
     }
 
-    private function czytajŚcieżki(): void
+    /**
+     * @return array<mixed>
+     */
+    private function czytajŚcieżki(): array
     {
         $pliki = [];
         $folderŚcieżek = $this->zwróćGłównyFolder() . 'ścieżki/';
@@ -98,7 +109,7 @@ class Jądro
             }
         }
 
-        var_dump($pliki);
+        return $pliki;
     }
 
     private function l(): void
