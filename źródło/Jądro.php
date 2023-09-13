@@ -6,12 +6,6 @@ namespace ŻółtaGąska;
 
 class Jądro
 {
-    private $ścieżki = [];
-
-    public function __construct()
-    {
-    }
-
     public function uruchom(): void
     {
         $linki = $this->czytajLink();

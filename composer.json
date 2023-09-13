@@ -13,11 +13,14 @@
             "email": "thebuladev@gmail.com"
         }
     ],
-    "require": {},
     "scripts": {
         "gąska:leć": [
             "Composer\\Config::disableProcessTimeout",
             "php -S localhost:8899 -t publiczny/"
-        ]
+        ],
+        "gąska:testuj": "./vendor/bin/phpunit źródło"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10"
     }
 }
