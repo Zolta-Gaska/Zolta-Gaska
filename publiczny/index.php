@@ -5,6 +5,5 @@ use ŻółtaGąska\Jądro;
 require __DIR__.'/../vendor/autoload.php';
 
 $jądro = new Jądro();
-// $jądro->pokażDebug();
-$jądro->uruchom();
+$jądro->uruchom($_SERVER);
 

@@ -6,9 +6,12 @@ namespace ŻółtaGąska;
 
 class Jądro
 {
-    public function uruchom(): void
+    /**
+     * @param $globalneSerwera array<string, mixed>
+     */
+    public function uruchom(array $globalneSerwera): void
     {
-        $linki = $this->czytajLink();
+        $linki = $this->czytajLink($globalneSerwera);
         $scieżki = $this->czytajŚcieżki();
 
         $this->generujOdpowiedź($linki['linki'], $scieżki);
@@ -40,11 +43,13 @@ class Jądro
     }
 
     /**
+     * @param $globalneSerwera array<string, mixed>
+     *
      * @return array<string, mixed>
      */
-    private function czytajLink(): array
+    private function czytajLink(array $globalneSerwera): array
     {
-        $link = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $link = parse_url($globalneSerwera['REQUEST_URI'], PHP_URL_PATH);
         $tablicaLinków = [];
         if ($link !== null) {
             $tablicaLinków = array_filter(explode('/', $link));
@@ -53,7 +58,7 @@ class Jądro
             $tablicaLinków = ['index.html'];
         }
 
-        $żądanie = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+        $żądanie = parse_url($globalneSerwera['REQUEST_URI'], PHP_URL_QUERY);
         $tablicaParametrów = [];
         if ($żądanie !== null) {
             $tablicaParametrów = array_filter(explode('&', $żądanie));
@@ -64,7 +69,11 @@ class Jądro
             'parametry' => array_values($tablicaParametrów),
         ];
     }
-
+    
+    /**
+     * @param $linki array<string>
+     * @param $ścieżki array<string>
+     */
     private function generujOdpowiedź(array $linki, array $ścieżki): void
     {
         foreach ($ścieżki as $ścieżka) {
