@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd"
-  colors="true"
-  cacheDirectory=".phpunit.cache">
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+colors="true">
   <php>
     <env name="APP_ENV" value="test" force="true"/>
     <env name="DATABASE_URL" value="sqlite:///%kernel.project_dir%/var/app.db"/>
@@ -16,7 +15,6 @@
     <server name="SYMFONY_PHPUNIT_REMOVE" value=""/>
     <server name="SYMFONY_PHPUNIT_VERSION" value="9.5"/>
   </php>
-
   <testsuites>
     <testsuite name="Testy jednostkowe">
       <directory>źródło</directory>
@@ -25,8 +23,7 @@
       <directory>koniecKońców</directory>
     </testsuite>
   </testsuites>
-
   <extensions>
-    <extension class="Symfony\Component\Panther\ServerExtension"/>
+    <extension class="Symfony\Component\Panther\ServerExtension" />
   </extensions>
 </phpunit>
