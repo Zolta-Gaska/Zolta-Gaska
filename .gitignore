@@ -3,3 +3,5 @@
 .phpunit.cache
 .phpunit.result.cache
 /drivers/*
+
+.idea/*
